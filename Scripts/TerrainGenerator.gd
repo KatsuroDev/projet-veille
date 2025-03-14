@@ -2,10 +2,6 @@
 class_name TerrainGenerator
 extends Node
 
-
-@export_range(0.0001, 10) var noiseScale: float = 1
-@export var width: int = 100
-@export var height: int = 100
 @export var noise: FastNoiseLite
 @export_tool_button("Generate") var action: Callable = generate
 var noiseTexture: NoiseTexture2D
