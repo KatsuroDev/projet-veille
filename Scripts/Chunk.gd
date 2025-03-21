@@ -2,12 +2,11 @@
 class_name Chunk
 extends MeshInstance3D
 
-
 var chunk_data: ChunkData = ChunkData.new()
 
 
 func _ready() -> void:
-	pass
+	chunk_data.connect("image_drawn", _on_image_drawn)
 
 
 func generate_mesh() -> void:
@@ -18,6 +17,9 @@ func generate_mesh() -> void:
 
 	new_mesh.add_surface_from_arrays(ArrayMesh.PRIMITIVE_TRIANGLES, surface_array)
 	self.mesh = new_mesh
+
+	var material := material_override as ShaderMaterial
+	material.set_shader_parameter("height_multiplier", chunk_data.height_multiplier)
 
 
 func _generate_surface() -> Array:
@@ -35,7 +37,7 @@ func _generate_surface() -> Array:
 
 	for z in range(chunk_data.width):
 		for x in range(chunk_data.width):
-			var index: int = z + x * chunk_data.width
+			var index: int = x + z * chunk_data.width
 			var height: float = chunk_data.height_map[index]
 			var vertex_position := Vector3(x, height, z)
 
@@ -43,13 +45,13 @@ func _generate_surface() -> Array:
 			uvs[index] = Vector2(x / float(chunk_data.width), z / float(chunk_data.width))
 
 			if x < chunk_data.width - 1 && z < chunk_data.width - 1:
-				indices[triangle_index] = index + chunk_data.width
+				indices[triangle_index] = index
 				indices[triangle_index + 1] = index + chunk_data.width + 1
-				indices[triangle_index + 2] = index
+				indices[triangle_index + 2] = index + chunk_data.width
 				
-				indices[triangle_index + 3] = index + 1
+				indices[triangle_index + 3] = index + chunk_data.width + 1
 				indices[triangle_index + 4] = index
-				indices[triangle_index + 5] = index + chunk_data.width + 1
+				indices[triangle_index + 5] = index + 1
 
 				triangle_index += 6
 
@@ -58,3 +60,17 @@ func _generate_surface() -> Array:
 	surface_array[ArrayMesh.ARRAY_TEX_UV] = uvs
 
 	return surface_array
+
+
+func _create_texture(image: Image) -> void:
+	var texture := ImageTexture.create_from_image(image)
+	var new_material := StandardMaterial3D.new()
+	new_material.albedo_texture = texture
+	new_material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	new_material.texture_repeat = false
+	
+	material_override = new_material
+
+
+func _on_image_drawn(image: Image) -> void:
+	_create_texture(image)
