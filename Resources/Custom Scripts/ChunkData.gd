@@ -7,6 +7,7 @@ var width: int = 128
 var noise: FastNoiseLite
 var height_map: PackedFloat32Array = PackedFloat32Array()
 var height_multiplier: int
+var height_curve: Curve
 
 
 func _ready() -> void:
@@ -22,15 +23,8 @@ func generate_height_map() -> void:
 			var height: float = noise.get_noise_2d(x, z)
 
 			height = (height + 1.0) / 2.0
-			height_map[index] = height
-	_height_enhancement()
-
-
-func _height_enhancement() -> void:
-	for z in range(width):
-		for x in range(width):
-			var index: int = x + z * width
-			height_map[index] = height_map[index] * height_multiplier
+			
+			height_map[index] = height_curve.sample(height) * height_multiplier
 
 
 func _draw_noise_map() -> void:
