@@ -3,6 +3,7 @@ class_name Chunk
 extends MeshInstance3D
 
 var chunk_data: ChunkData = ChunkData.new()
+@export_range(0, 6) var level_of_detail: int
 
 
 func _ready() -> void:
@@ -28,28 +29,30 @@ func _generate_surface() -> Array:
 	var indices := PackedInt32Array()
 	var uvs := PackedVector2Array()
 	var triangle_index: int = 0
+	var mesh_simplification_increment: int = 1 if level_of_detail == 0 else level_of_detail * 2
+	var vertices_per_line: int = (chunk_data.size - 1) / mesh_simplification_increment + 1
 
-	vertices.resize(chunk_data.width * chunk_data.width)
-	indices.resize((chunk_data.width - 1) * (chunk_data.width - 1) * 6)
-	uvs.resize(chunk_data.width * chunk_data.width)
+	vertices.resize(vertices_per_line * vertices_per_line)
+	indices.resize((vertices_per_line - 1) * (vertices_per_line - 1) * 6)
+	uvs.resize(vertices_per_line * vertices_per_line)
 
 	surface_array.resize(ArrayMesh.ARRAY_MAX)
 
-	for z in range(chunk_data.width):
-		for x in range(chunk_data.width):
-			var index: int = x + z * chunk_data.width
+	for z in range(0, chunk_data.size, mesh_simplification_increment):
+		for x in range(0, chunk_data.size, mesh_simplification_increment):
+			var index: int = (x / mesh_simplification_increment) + (z / mesh_simplification_increment) * vertices_per_line
 			var height: float = chunk_data.height_map[index]
 			var vertex_position := Vector3(x, height, z)
 
 			vertices[index] = vertex_position
-			uvs[index] = Vector2(x / float(chunk_data.width), z / float(chunk_data.width))
+			uvs[index] = Vector2(x / float(chunk_data.size), z / float(chunk_data.size))
 
-			if x < chunk_data.width - 1 && z < chunk_data.width - 1:
+			if x < chunk_data.size - 1 && z < chunk_data.size - 1:
 				indices[triangle_index] = index
-				indices[triangle_index + 1] = index + chunk_data.width + 1
-				indices[triangle_index + 2] = index + chunk_data.width
+				indices[triangle_index + 1] = index + vertices_per_line + 1
+				indices[triangle_index + 2] = index + vertices_per_line
 				
-				indices[triangle_index + 3] = index + chunk_data.width + 1
+				indices[triangle_index + 3] = index + vertices_per_line + 1
 				indices[triangle_index + 4] = index
 				indices[triangle_index + 5] = index + 1
 
