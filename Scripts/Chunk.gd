@@ -3,7 +3,9 @@ class_name Chunk
 extends MeshInstance3D
 
 var chunk_data: ChunkData = ChunkData.new()
-@export_range(0, 6) var level_of_detail: int
+@export_range(0, 6) var level_of_detail: int:
+	set(value):
+		level_of_detail = clamp(value, 0, _get_number_factors_count(chunk_data.width))
 
 
 func _ready() -> void:
@@ -41,7 +43,8 @@ func _generate_surface() -> Array:
 	for z in range(0, chunk_data.size, mesh_simplification_increment):
 		for x in range(0, chunk_data.size, mesh_simplification_increment):
 			var index: int = (x / mesh_simplification_increment) + (z / mesh_simplification_increment) * vertices_per_line
-			var height: float = chunk_data.height_map[index]
+			var height_index: int = x + z * chunk_data.size
+			var height: float = chunk_data.height_map[height_index]
 			var vertex_position := Vector3(x, height, z)
 
 			vertices[index] = vertex_position
@@ -77,3 +80,11 @@ func _create_texture(image: Image) -> void:
 
 func _on_image_drawn(image: Image) -> void:
 	_create_texture(image)
+
+
+func _get_number_factors_count(number: int) -> int:
+	var factors: Array = []
+	for i in range(1, number):
+		if (number % i == 0):
+			factors.append(i)
+	return factors.size()
