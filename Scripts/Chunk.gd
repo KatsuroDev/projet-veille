@@ -3,7 +3,7 @@ class_name Chunk
 extends MeshInstance3D
 
 var chunk_data: ChunkData = ChunkData.new()
-@export_range(0, 6) var level_of_detail: int:
+@export var level_of_detail: int:
 	set(value):
 		level_of_detail = clamp(value, 0, _get_number_factors_count(chunk_data.width))
 
