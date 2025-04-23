@@ -2,10 +2,15 @@
 class_name Chunk
 extends MeshInstance3D
 
-var chunk_data: ChunkData = ChunkData.new()
 @export var level_of_detail: int:
 	set(value):
 		level_of_detail = clamp(value, 0, _get_number_factors_count(chunk_data.width))
+
+var chunk_data: ChunkData = ChunkData.new()
+
+
+func _init() -> void:
+	material_override = preload("../Resources/Materials/default_chunk_material.tres") as ShaderMaterial
 
 
 func _ready() -> void:
@@ -13,7 +18,7 @@ func _ready() -> void:
 
 
 func generate_mesh() -> void:
-	chunk_data.generate_height_map()
+	chunk_data.generate_height_map(Vector2(position.x, position.z))
 
 	var new_mesh := ArrayMesh.new()
 	var surface_array := _generate_surface()

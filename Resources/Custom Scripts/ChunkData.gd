@@ -17,13 +17,13 @@ func _ready() -> void:
 	pass
 
 
-func generate_height_map() -> void:
+func generate_height_map(offset: Vector2) -> void:
 	height_map.resize(size * size)
 
 	for z in range(size):
 		for x in range(size):
 			var index: int = x + z * size
-			var height: float = noise.get_noise_2d(x, z)
+			var height: float = noise.get_noise_2d(x + offset.x, z + offset.y)
 
 			height = (height + 1.0) / 2.0
 			
