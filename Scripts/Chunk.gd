@@ -29,6 +29,8 @@ func generate_mesh() -> void:
 	var material := material_override as ShaderMaterial
 	material.set_shader_parameter("height_multiplier", chunk_data.height_multiplier)
 
+	create_trimesh_collision()
+
 
 func _generate_surface() -> Array:
 	var surface_array: Array = []
