@@ -31,7 +31,7 @@ height_curve = SubResource("Curve_vrsyt")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.917514, -0.328498, -0.224181, 0.147601, -0.804695, 0.575048, -0.3693, 0.494525, 0.786805, -39.4148, 45.5239, 17.4737)
-light_color = Color(0.8, 0.653333, 0, 1)
+light_color = Color(0.756758, 0.659291, 0.405577, 1)
 light_energy = 8.203
 shadow_enabled = true
 
