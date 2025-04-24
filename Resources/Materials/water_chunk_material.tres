@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bfjlqbx2160va"]
+
+[ext_resource type="Shader" uid="uid://dnhreravqp6kg" path="res://Resources/Shaders/default_chunk.gdshader" id="1_c1wvo"]
+[ext_resource type="Texture2D" uid="uid://cs2ictab1ihrc" path="res://Resources/Textures/default_regions_gradient.tres" id="2_1mohh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_c1wvo")
+shader_parameter/gradient_texture = ExtResource("2_1mohh")
+shader_parameter/height_multiplier = 10

@@ -7,6 +7,7 @@ extends MeshInstance3D
 		level_of_detail = clamp(value, 0, _get_number_factors_count(chunk_data.width))
 
 var chunk_data: ChunkData = ChunkData.new()
+var water_material: ShaderMaterial = preload("../Resources/Materials/water.material") as ShaderMaterial
 
 
 func _init() -> void:
@@ -31,12 +32,22 @@ func generate_mesh() -> void:
 
 	create_trimesh_collision()
 
+	var water_mesh := MeshInstance3D.new()
+	var water_plane := PlaneMesh.new()
+	water_plane.center_offset = Vector3(chunk_data.width, 0, chunk_data.width)
+	water_plane.size = Vector2(chunk_data.width, chunk_data.width)
+	water_mesh.mesh = water_plane
+	water_mesh.material_override = water_material
+	water_mesh.position.y = 0.407 * chunk_data.height_multiplier
+	add_child(water_mesh)
+
 
 func _generate_surface() -> Array:
 	var surface_array: Array = []
 	var vertices := PackedVector3Array()
 	var indices := PackedInt32Array()
 	var uvs := PackedVector2Array()
+	var normals := PackedVector3Array()
 	var triangle_index: int = 0
 	var mesh_simplification_increment: int = 1 if level_of_detail == 0 else level_of_detail * 2
 	var vertices_per_line: int = (chunk_data.size - 1) / mesh_simplification_increment + 1
@@ -44,6 +55,7 @@ func _generate_surface() -> Array:
 	vertices.resize(vertices_per_line * vertices_per_line)
 	indices.resize((vertices_per_line - 1) * (vertices_per_line - 1) * 6)
 	uvs.resize(vertices_per_line * vertices_per_line)
+	normals.resize(vertices_per_line * vertices_per_line)
 
 	surface_array.resize(ArrayMesh.ARRAY_MAX)
 
@@ -56,6 +68,7 @@ func _generate_surface() -> Array:
 
 			vertices[index] = vertex_position
 			uvs[index] = Vector2(x / float(chunk_data.size), z / float(chunk_data.size))
+			normals[index] = Vector3.UP
 
 			if x < chunk_data.size - 1 && z < chunk_data.size - 1:
 				indices[triangle_index] = index
@@ -71,6 +84,7 @@ func _generate_surface() -> Array:
 	surface_array[ArrayMesh.ARRAY_VERTEX] = vertices
 	surface_array[ArrayMesh.ARRAY_INDEX] = indices
 	surface_array[ArrayMesh.ARRAY_TEX_UV] = uvs
+	surface_array[ArrayMesh.ARRAY_NORMAL] = normals
 
 	return surface_array
 

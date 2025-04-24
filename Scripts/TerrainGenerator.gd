@@ -21,14 +21,14 @@ var last_chunk_coord: Vector2i
 func _ready() -> void:
 	generate()
 
-	last_chunk_coord = _get_chunk_coord(viewer.position)
+	last_chunk_coord = _get_chunk_coord(viewer.global_position)
 	_process_view_area()
 
 
 func _process(_delta: float) -> void:
-	if _get_chunk_coord(viewer.position) != last_chunk_coord:
+	if _get_chunk_coord(viewer.global_position) != last_chunk_coord:
 		_process_view_area()
-		last_chunk_coord = _get_chunk_coord(viewer.position)
+		last_chunk_coord = _get_chunk_coord(viewer.global_position)
 
 
 func generate() -> void:
@@ -47,7 +47,7 @@ func _get_chunk_coord(world_coord: Vector3) -> Vector2i:
 
 
 func _process_view_area() -> void:
-	var current_chunk_coord: Vector2i = _get_chunk_coord(viewer.position)
+	var current_chunk_coord: Vector2i = _get_chunk_coord(viewer.global_position)
 
 	for z_offset in range(-max_chunk_view_dist, max_chunk_view_dist):
 		for x_offset in range(-max_chunk_view_dist, max_chunk_view_dist):
@@ -73,7 +73,7 @@ func _remove_unviewed_chunks() -> void:
 	var unviewed_chunks: Array[Chunk] = []
 	for key: Vector2i in chunks.keys():
 		var chunk: Chunk = chunks[key]
-		var distance: Vector2i = key - _get_chunk_coord(viewer.position)
+		var distance: Vector2i = key - _get_chunk_coord(viewer.global_position)
 		var is_visible: bool = abs(distance.x) <= max_chunk_view_dist && abs(distance.y) <= max_chunk_view_dist
 		if not is_visible:
 			unviewed_chunks.append(chunk)
