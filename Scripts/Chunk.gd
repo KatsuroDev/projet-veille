@@ -34,7 +34,7 @@ func generate_mesh() -> void:
 
 	var water_mesh := MeshInstance3D.new()
 	var water_plane := PlaneMesh.new()
-	water_plane.center_offset = Vector3(chunk_data.width, 0, chunk_data.width)
+	water_plane.center_offset = Vector3(chunk_data.width/2, 0, chunk_data.width/2)
 	water_plane.size = Vector2(chunk_data.width, chunk_data.width)
 	water_mesh.mesh = water_plane
 	water_mesh.material_override = water_material

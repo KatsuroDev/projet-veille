@@ -1,6 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ciavo4s3oyclq"]
 
 [ext_resource type="Script" uid="uid://b13uimpip7s2u" path="res://Scripts/TerrainGenerator.gd" id="1_yb7oq"]
+[ext_resource type="Curve" uid="uid://csksvqfnm0kon" path="res://Resources/curve.tres" id="2_puuaq"]
 [ext_resource type="Environment" uid="uid://toi61qlg5jcx" path="res://Resources/World Environments/world_environment.tres" id="3_asc4v"]
 [ext_resource type="CameraAttributesPractical" uid="uid://bwr15hkv875k8" path="res://Resources/Camera Attributes/camera_attributes.tres" id="4_1i1hv"]
 [ext_resource type="Script" uid="uid://ucrdvw2vdklp" path="res://Scripts/camera.gd" id="4_asc4v"]
@@ -9,15 +10,11 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_mypys"]
 noise_type = 0
-frequency = 0.0249
+frequency = 0.0037
 fractal_octaves = 10
 fractal_lacunarity = 3.0
 fractal_weighted_strength = 0.5
 domain_warp_fractal_type = 0
-
-[sub_resource type="Curve" id="Curve_vrsyt"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.37037, 0.247191), 0.272256, 0.272256, 0, 0, Vector2(1, 1), 1.20337, 0.0, 0, 0]
-point_count = 3
 
 [sub_resource type="SphereMesh" id="SphereMesh_vrsyt"]
 
@@ -28,8 +25,8 @@ point_count = 3
 [node name="TerrainGenerator" type="Node3D"]
 script = ExtResource("1_yb7oq")
 noise = SubResource("FastNoiseLite_mypys")
-height_multiplier = 10
-height_curve = SubResource("Curve_vrsyt")
+height_multiplier = 70
+height_curve = ExtResource("2_puuaq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.917514, -0.328498, -0.224181, 0.147601, -0.804695, 0.575048, -0.3693, 0.494525, 0.786805, -39.4148, 45.5239, 17.4737)
@@ -66,5 +63,4 @@ mesh = SubResource("PlaneMesh_asc4v")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_1i1hv")
-volume_db = -12.0
 script = ExtResource("6_wf6tq")
