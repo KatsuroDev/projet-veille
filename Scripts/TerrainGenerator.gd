@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 
 
 func generate() -> void:
-	for child in get_children():	
+	for child in $Chunks.get_children():	
 		if child is Chunk:
 			var chunk: Chunk = child as Chunk
 			chunk.chunk_data.width = chunk_width

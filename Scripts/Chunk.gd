@@ -37,7 +37,7 @@ func generate_mesh() -> void:
 	water_plane.size = Vector2(chunk_data.width, chunk_data.width)
 	water_mesh.mesh = water_plane
 	water_mesh.material_override = water_material
-	water_mesh.position.y = 0.407 * chunk_data.height_multiplier
+	water_mesh.position.y = 0.351 * chunk_data.height_multiplier
 	add_child(water_mesh)
 
 
