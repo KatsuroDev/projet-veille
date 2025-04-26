@@ -31,13 +31,15 @@ var _alt := false
 func _input(event: InputEvent) -> void:
 	# Receives mouse motion
 	if event is InputEventMouseMotion:
-		_mouse_position = event.relative
+		var mouse_event := event as InputEventMouseMotion
+		_mouse_position = mouse_event.relative
 	
 	# Receives mouse button input
 	if event is InputEventMouseButton:
-		match event.button_index:
+		var mouse_button_event := event as InputEventMouseButton
+		match mouse_button_event.button_index:
 			MOUSE_BUTTON_RIGHT: # Only allows rotation if right click down
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if event.pressed else Input.MOUSE_MODE_VISIBLE)
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if mouse_button_event.pressed else Input.MOUSE_MODE_VISIBLE)
 			MOUSE_BUTTON_WHEEL_UP: # Increases max velocity
 				_vel_multiplier = clamp(_vel_multiplier * 1.1, 0.2, 20)
 				print(_vel_multiplier)
@@ -46,23 +48,24 @@ func _input(event: InputEvent) -> void:
 
 	# Receives key input
 	if event is InputEventKey:
-		match event.keycode:
+		var key_event := event as InputEventKey
+		match key_event.keycode:
 			KEY_W:
-				_w = event.pressed
+				_w = key_event.pressed
 			KEY_S:
-				_s = event.pressed
+				_s = key_event.pressed
 			KEY_A:
-				_a = event.pressed
+				_a = key_event.pressed
 			KEY_D:
-				_d = event.pressed
+				_d = key_event.pressed
 			KEY_Q:
-				_q = event.pressed
+				_q = key_event.pressed
 			KEY_E:
-				_e = event.pressed
+				_e = key_event.pressed
 			KEY_SHIFT:
-				_shift = event.pressed
+				_shift = key_event.pressed
 			KEY_ALT:
-				_alt = event.pressed
+				_alt = key_event.pressed
 
 # Updates mouselook and movement every frame
 func _process(delta: float) -> void:

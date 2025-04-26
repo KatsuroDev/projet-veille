@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7i1fy3orqwm7"]
+
+[ext_resource type="Script" uid="uid://rxgctildfrqy" path="res://Scripts/PlayerController.gd" id="1_l5s0g"]
+[ext_resource type="Script" uid="uid://c5s7h6vp35675" path="res://Scripts/MouseHandling.gd" id="2_cokxn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hulf2"]
+
+[node name="PlayerController" type="CharacterBody3D"]
+script = ExtResource("1_l5s0g")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49751, 0)
+current = true
+script = ExtResource("2_cokxn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hulf2")

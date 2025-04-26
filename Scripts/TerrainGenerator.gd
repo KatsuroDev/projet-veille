@@ -1,6 +1,5 @@
 @tool
-class_name TerrainGenerator
-extends Node
+class_name TerrainGenerator extends Node
 
 @export var noise: FastNoiseLite
 @export_tool_button("Generate") var action: Callable = generate

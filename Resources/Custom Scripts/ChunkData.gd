@@ -1,5 +1,4 @@
-class_name ChunkData
-extends Resource
+class_name ChunkData extends Resource
 
 signal image_drawn(image: Image)
 

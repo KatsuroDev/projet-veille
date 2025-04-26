@@ -1,6 +1,5 @@
 @tool
-class_name Chunk
-extends MeshInstance3D
+class_name Chunk extends MeshInstance3D
 
 @export var level_of_detail: int:
 	set(value):
