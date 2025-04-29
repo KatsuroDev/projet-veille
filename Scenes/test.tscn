@@ -1,14 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://ciavo4s3oyclq"]
+[gd_scene load_steps=16 format=3 uid="uid://ciavo4s3oyclq"]
 
 [ext_resource type="Script" uid="uid://b13uimpip7s2u" path="res://Scripts/TerrainGenerator.gd" id="1_0c07c"]
 [ext_resource type="Curve" uid="uid://csksvqfnm0kon" path="res://Resources/curve.tres" id="2_2cgwh"]
+[ext_resource type="PackedScene" uid="uid://c7i1fy3orqwm7" path="res://Prefabs/PlayerController.tscn" id="3_2cgwh"]
 [ext_resource type="Script" uid="uid://ucrdvw2vdklp" path="res://Scripts/camera.gd" id="3_iaow0"]
 [ext_resource type="Environment" uid="uid://toi61qlg5jcx" path="res://Resources/World Environments/world_environment.tres" id="4_qpfo2"]
 [ext_resource type="CameraAttributesPractical" uid="uid://bwr15hkv875k8" path="res://Resources/Camera Attributes/camera_attributes.tres" id="5_yb21e"]
 [ext_resource type="AudioStream" uid="uid://bxcqdemeb076a" path="res://Resources/Music/Escaped - By shrmp.wav" id="6_aees8"]
 [ext_resource type="Script" uid="uid://dnj2q3bpm21dy" path="res://Scripts/MusicPlayer.gd" id="7_mie3u"]
+[ext_resource type="PackedScene" uid="uid://budwihvthm8mu" path="res://Prefabs/FoliageGroup_1.tscn" id="8_0c07c"]
+[ext_resource type="PackedScene" uid="uid://dn2xe3ttkclt6" path="res://Prefabs/FoliageGroup_2.tscn" id="10_iaow0"]
+[ext_resource type="PackedScene" uid="uid://bl4u5rbeinf8d" path="res://Prefabs/FoliageGroup_3.tscn" id="11_qpfo2"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_mypys"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qpfo2"]
 noise_type = 0
 frequency = 0.0037
 fractal_octaves = 10
@@ -16,17 +20,23 @@ fractal_lacunarity = 3.0
 fractal_weighted_strength = 0.5
 domain_warp_fractal_type = 0
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yb21e"]
+noise_type = 0
+frequency = 0.241
+
 [sub_resource type="SphereMesh" id="SphereMesh_vrsyt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1i1hv"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_asc4v"]
-
 [node name="TerrainGenerator" type="Node3D"]
 script = ExtResource("1_0c07c")
-noise = SubResource("FastNoiseLite_mypys")
+terrain_noise = SubResource("FastNoiseLite_qpfo2")
+foliage_noise = SubResource("FastNoiseLite_yb21e")
 height_multiplier = 70
 height_curve = ExtResource("2_2cgwh")
+
+[node name="PlayerController" parent="." instance=ExtResource("3_2cgwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.6771, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.917514, -0.328498, -0.224181, 0.147601, -0.804695, 0.575048, -0.3693, 0.494525, 0.786805, -39.4148, 45.5239, 17.4737)
@@ -58,9 +68,15 @@ shape = SubResource("SphereShape3D_1i1hv")
 environment = ExtResource("4_qpfo2")
 camera_attributes = ExtResource("5_yb21e")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_asc4v")
-
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_aees8")
 script = ExtResource("7_mie3u")
+
+[node name="FoliageGroup1" parent="." instance=ExtResource("8_0c07c")]
+transform = Transform3D(-0.60732, 0, 0.794457, -0.13033, 0.986452, -0.0996304, -0.783694, -0.164049, -0.599093, -17.5828, 29.8624, 11.3967)
+
+[node name="FoliageGroup2" parent="." instance=ExtResource("10_iaow0")]
+transform = Transform3D(1, 0, 0, 0, 0.998594, -0.0530157, 0, 0.0530157, 0.998594, -23.859, 30.5619, 32.8494)
+
+[node name="FoliageGroup3" parent="." instance=ExtResource("11_qpfo2")]
+transform = Transform3D(0.990915, 0.134488, 0, -0.134488, 0.990915, 0, 0, 0, 1, 0, 30.8515, 22.2438)

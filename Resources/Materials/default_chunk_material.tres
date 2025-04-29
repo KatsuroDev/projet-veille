@@ -7,4 +7,4 @@
 render_priority = 0
 shader = ExtResource("1_3dxra")
 shader_parameter/gradient_texture = ExtResource("2_xx3s1")
-shader_parameter/height_multiplier = 10
+shader_parameter/height_multiplier = 70

@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn2xe3ttkclt6"]
+
+[ext_resource type="PackedScene" uid="uid://otq6g8hjgnuj" path="res://Resources/Models/Multiple Grass.glb" id="1_gxpfj"]
+[ext_resource type="PackedScene" uid="uid://8vl0p7g0v8dq" path="res://Resources/Models/MushBig.glb" id="2_3pljy"]
+[ext_resource type="PackedScene" uid="uid://d3dlsgevep83k" path="res://Resources/Models/RockBig.glb" id="3_qurt3"]
+[ext_resource type="PackedScene" uid="uid://bwijw3g85yjk" path="res://Resources/Models/RockMedium.glb" id="4_dh5qd"]
+[ext_resource type="PackedScene" uid="uid://mh4r64kgb7uy" path="res://Resources/Models/RockSmall.glb" id="5_6l4gf"]
+[ext_resource type="PackedScene" uid="uid://bbd6rmpswfboj" path="res://Resources/Models/MushSmall.glb" id="6_iw5y6"]
+
+[node name="FoliageGroup2" type="Node3D"]
+
+[node name="Multiple Grass" parent="." instance=ExtResource("1_gxpfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.04449, 0, -2.65988)
+
+[node name="MushBig" parent="." instance=ExtResource("2_3pljy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89042, 0, -3.07245)
+
+[node name="RockBig" parent="." instance=ExtResource("3_qurt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.394118, 0, -0.422835)
+
+[node name="RockMedium" parent="." instance=ExtResource("4_dh5qd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.19636, 0, -0.97007)
+
+[node name="RockSmall" parent="." instance=ExtResource("5_6l4gf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15272, 0, -0.92323)
+
+[node name="MushSmall" parent="." instance=ExtResource("6_iw5y6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.00798, 0, -4.4847)
+
+[node name="Multiple Grass2" parent="." instance=ExtResource("1_gxpfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.89853, 0, -3.60708)

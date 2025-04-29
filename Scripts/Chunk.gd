@@ -7,6 +7,11 @@ class_name Chunk extends MeshInstance3D
 
 var chunk_data: ChunkData = ChunkData.new()
 var water_material: ShaderMaterial = preload("../Resources/Materials/water.material") as ShaderMaterial
+var foliages_prefab: Dictionary[int, PackedScene] = {
+	1: preload("res://Prefabs/FoliageGroup_1.tscn"),
+	2: preload("res://Prefabs/FoliageGroup_2.tscn"),
+	3: preload("res://Prefabs/FoliageGroup_3.tscn"),
+}
 
 
 func _init() -> void:
@@ -39,6 +44,13 @@ func generate_mesh() -> void:
 	water_mesh.material_override = water_material
 	water_mesh.position.y = 0.351 * chunk_data.height_multiplier
 	add_child(water_mesh)
+
+	for foliage_coord: Vector3 in chunk_data.foliages.keys():
+		var foliage: int = chunk_data.foliages[foliage_coord]
+		var prefab: Node3D = foliages_prefab[foliage].instantiate()
+		prefab.position = foliage_coord
+		prefab.rotate_y(deg_to_rad(randf_range(0, 360)))
+		add_child(prefab)
 
 
 func _generate_surface() -> Array:
