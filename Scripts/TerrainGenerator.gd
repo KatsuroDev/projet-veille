@@ -9,7 +9,7 @@ class_name TerrainGenerator extends Node
 @export_range(2, 240) var chunk_width: int = 16
 @export_range(0, 12) var max_chunk_view_dist: int = 6
 
-@onready var viewer: Node3D = $FreeLookCamera/Viewer
+@onready var viewer: Node3D = $PlayerController
 
 var chunks: Dictionary[Vector2i, Chunk] = {}
 var visible_chunks_last_update: Array[Vector2i] = []

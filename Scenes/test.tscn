@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ciavo4s3oyclq"]
+[gd_scene load_steps=13 format=3 uid="uid://ciavo4s3oyclq"]
 
 [ext_resource type="Script" uid="uid://b13uimpip7s2u" path="res://Scripts/TerrainGenerator.gd" id="1_0c07c"]
 [ext_resource type="Curve" uid="uid://csksvqfnm0kon" path="res://Resources/curve.tres" id="2_2cgwh"]
@@ -7,10 +7,7 @@
 [ext_resource type="Environment" uid="uid://toi61qlg5jcx" path="res://Resources/World Environments/world_environment.tres" id="4_qpfo2"]
 [ext_resource type="CameraAttributesPractical" uid="uid://bwr15hkv875k8" path="res://Resources/Camera Attributes/camera_attributes.tres" id="5_yb21e"]
 [ext_resource type="AudioStream" uid="uid://bxcqdemeb076a" path="res://Resources/Music/Escaped - By shrmp.wav" id="6_aees8"]
-[ext_resource type="Script" uid="uid://dnj2q3bpm21dy" path="res://Scripts/MusicPlayer.gd" id="7_mie3u"]
-[ext_resource type="PackedScene" uid="uid://budwihvthm8mu" path="res://Prefabs/FoliageGroup_1.tscn" id="8_0c07c"]
-[ext_resource type="PackedScene" uid="uid://dn2xe3ttkclt6" path="res://Prefabs/FoliageGroup_2.tscn" id="10_iaow0"]
-[ext_resource type="PackedScene" uid="uid://bl4u5rbeinf8d" path="res://Prefabs/FoliageGroup_3.tscn" id="11_qpfo2"]
+[ext_resource type="Script" path="res://Scripts/MusicPlayer.gd" id="7_mie3u"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qpfo2"]
 noise_type = 0
@@ -71,12 +68,3 @@ camera_attributes = ExtResource("5_yb21e")
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_aees8")
 script = ExtResource("7_mie3u")
-
-[node name="FoliageGroup1" parent="." instance=ExtResource("8_0c07c")]
-transform = Transform3D(-0.60732, 0, 0.794457, -0.13033, 0.986452, -0.0996304, -0.783694, -0.164049, -0.599093, -17.5828, 29.8624, 11.3967)
-
-[node name="FoliageGroup2" parent="." instance=ExtResource("10_iaow0")]
-transform = Transform3D(1, 0, 0, 0, 0.998594, -0.0530157, 0, 0.0530157, 0.998594, -23.859, 30.5619, 32.8494)
-
-[node name="FoliageGroup3" parent="." instance=ExtResource("11_qpfo2")]
-transform = Transform3D(0.990915, 0.134488, 0, -0.134488, 0.990915, 0, 0, 0, 1, 0, 30.8515, 22.2438)
